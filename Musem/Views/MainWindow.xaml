@@ -1,0 +1,65 @@
+﻿<Window x:Class="Musem.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Musem.Views" xmlns:viewmodel="clr-namespace:Musem.ViewModels"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="1080" Width="1920" WindowStyle="None" WindowState="Maximized">
+    <Window.DataContext>
+        <viewmodel:MainWindowViewModel/>
+    </Window.DataContext>
+
+    <Viewbox Stretch="Uniform">
+        <Grid  Height="1080" Width="1920">
+            <Rectangle Panel.ZIndex="-20" Fill="#FCE3C8"/>
+            <Image Stretch="Uniform" Source="../Data/frame.png" Panel.ZIndex="-19"/>
+            <Image Stretch="Uniform" Height="150" Width="151" VerticalAlignment="Bottom" HorizontalAlignment="Right" Source="{Binding BitmapImageQrCode}" Visibility="{Binding VisibilityQrCode}" Margin="0,0,34,28"/>
+            <Image Stretch="Uniform" Source="{Binding BitmapImageSc}"  Height="{Binding HeightImg}" Width="700"  VerticalAlignment="Top" Margin="0,65,0,0" Opacity="{Binding TransparencyImage}" />
+
+            <Border BorderBrush="White" Background="#E590877B" BorderThickness="5" CornerRadius="100"  Margin="{Binding PostGridStyles}" Height="400" Width="1700" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                <Grid>
+                    <ItemsControl ItemsSource="{Binding Styles}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <Grid Height="450">
+                                    <Grid.Resources >
+                                    </Grid.Resources>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                </Grid>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemContainerStyle>
+                            <Style>
+                                <Setter Property="Grid.Column" Value="{Binding Column}" />
+                                <Setter Property="Grid.Row" Value="0" />
+                            </Style>
+
+                        </ItemsControl.ItemContainerStyle>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <local:ImgStyle  NameStyle="{Binding NameStyle}" Path="{Binding Path}" Height="300" VerticalAlignment="Top" Margin="0,60,0,0"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Grid>
+            </Border>
+            <Image Stretch="Uniform" Width="{Binding SizeStyleImg}" Height="{Binding SizeStyleImg}" Margin="{Binding PosStyle}" Source="{Binding ImgStyle.Path}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Panel.ZIndex="999" Opacity="{Binding TransparencyImageStyle}"/>
+            <local:Progressbar HorizontalAlignment="Center" VerticalAlignment="Top" Width="980" Margin="0,501,0,0" DataContext="{Binding ProgressBarVM}" Opacity="{Binding TransparencyProgressbar}"/>
+            <Grid  Width="546" Margin="59,-16,1315,16" Height="581" Visibility="{Binding VisibilitText}" Opacity="{Binding TransparencyImage}">
+                <Image Source="../Data/frameText.png" Stretch="Uniform"/>
+                <TextBox TextWrapping="Wrap" Width="526" Foreground="#250c08"  Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource CustomFont}" FontSize="26.37"
+                         Text="{Binding TextStyle}"
+                         IsReadOnly="False"
+                         HorizontalContentAlignment="Center"/>
+
+
+            </Grid>
+        </Grid>
+    </Viewbox>
+</Window>
